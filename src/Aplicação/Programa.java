@@ -1,8 +1,12 @@
 package Aplicação;
 
+import Tabuleiro.Posição;
+
 public class Programa {
 
 	public static void main(String[] args) {
-		System.out.println("XADREZ");
+		
+		Posição pos = new Posição(3,5);
+		System.out.println(pos);
 	}
 }
