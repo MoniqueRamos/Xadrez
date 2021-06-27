@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Xadrez.Cor;
+import Xadrez.PartidaDeXadrez;
 import Xadrez.PeçaDeXadrez;
 import Xadrez.PosiçãoDeXadrez;
 
@@ -29,12 +30,12 @@ public class UI {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-	
+
 	public static void limparTela() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 	}
-	
+
 	public static PosiçãoDeXadrez lerPosiçãoDeXadrez(Scanner sc) {
 		try {
 			String s = sc.nextLine();
@@ -44,6 +45,13 @@ public class UI {
 		} catch (RuntimeException e) {
 			throw new InputMismatchException("Erro na posição! Valores válidos são de a1 até h8.");
 		}
+	}
+
+	public static void printPartida(PartidaDeXadrez partidaDeXadrez) {
+		printTabuleiro(partidaDeXadrez.getPeças());
+		System.out.println();
+		System.out.println("Turno: " + partidaDeXadrez.getTurno());
+		System.out.println("Esperando jogador: " + partidaDeXadrez.getJogadorAtual());
 	}
 
 	public static void printTabuleiro(PeçaDeXadrez[][] peças) {
@@ -58,7 +66,7 @@ public class UI {
 	}
 
 	private static void printPeça(PeçaDeXadrez peça, boolean background) {
-		if(background) {
+		if (background) {
 			System.out.print(ANSI_RED_BACKGROUND);
 		}
 		if (peça == null) {
@@ -73,7 +81,7 @@ public class UI {
 		}
 		System.out.print("");
 	}
-	
+
 	public static void printTabuleiro(PeçaDeXadrez[][] peças, boolean[][] movimentosPossiveis) {
 		for (int i = 0; i < peças.length; i++) {
 			System.out.print((8 - i) + " ");
