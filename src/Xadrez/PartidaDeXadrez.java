@@ -28,7 +28,8 @@ public class PartidaDeXadrez {
 	public PeçaDeXadrez executarMovimentoDeXadrez(PosiçãoDeXadrez posiçãoDeOrigem, PosiçãoDeXadrez posiçãoDeDestino) {
 		Posição origem = posiçãoDeOrigem.paraPosição();
 		Posição destino = posiçãoDeDestino.paraPosição();
-		validarPosiçãoInicial(origem);
+		validarPosiçãoDeOrigem(origem);
+		validarPosiçãoDeDestino(origem, destino);
 		Peça peçaCapturada = realizarMovimento(origem, destino);
 		return (PeçaDeXadrez) peçaCapturada;
 	}
@@ -40,12 +41,18 @@ public class PartidaDeXadrez {
 		return peçaCapturada;
 	}
 
-	private void validarPosiçãoInicial(Posição posição) {
+	private void validarPosiçãoDeOrigem(Posição posição) {
 		if (!tabuleiro.temUmaPeça(posição)) {
 			throw new XadrezException("Não existe peça na posição de origem");
 		}
-		if(!tabuleiro.peça(posição).temMovimentoPossivel()) {
+		if (!tabuleiro.peça(posição).temMovimentoPossivel()) {
 			throw new XadrezException("Não existem movimentos possiveis para a peça escolhida!");
+		}
+	}
+
+	private void validarPosiçãoDeDestino(Posição origem, Posição destino) {
+		if (!tabuleiro.peça(origem).movimentoPossivel(destino)) {
+			throw new XadrezException("A peça escolhida não pode ser movida para a posição escolhida");
 		}
 	}
 
