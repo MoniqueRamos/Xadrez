@@ -57,6 +57,9 @@ public class UI {
 		System.out.println();
 		System.out.println("Turno: " + partidaDeXadrez.getTurno());
 		System.out.println("Esperando jogador: " + partidaDeXadrez.getJogadorAtual());
+		if (partidaDeXadrez.getCheque()) {
+			System.out.println("CHEQUE!");
+		}
 	}
 
 	public static void printTabuleiro(PeçaDeXadrez[][] peças) {
@@ -99,7 +102,8 @@ public class UI {
 	}
 
 	private static void printPeçasCapturadas(List<PeçaDeXadrez> capturada) {
-		List<PeçaDeXadrez> branco = capturada.stream().filter(x -> x.getCor() == Cor.WHITE).collect(Collectors.toList());
+		List<PeçaDeXadrez> branco = capturada.stream().filter(x -> x.getCor() == Cor.WHITE)
+				.collect(Collectors.toList());
 		List<PeçaDeXadrez> preto = capturada.stream().filter(x -> x.getCor() == Cor.BLACK).collect(Collectors.toList());
 
 		System.out.println("Peças capturadas:");
